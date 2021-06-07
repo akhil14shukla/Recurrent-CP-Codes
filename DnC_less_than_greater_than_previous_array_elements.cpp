@@ -3,14 +3,14 @@ using namespace std;
 #define ll long long int
 #define rep(i, n) for (int i = 0; i < n; i++)
 
-void merge(vector<pair<int, int>> &a, int start, int end, vector<int> &less)
+void merge(vector<pair<int, int>> &a, int start, int end, vector<int> &great)
 {
     if (start == end)
     {
         return;
     }
-    merge(a, start, (start + end) / 2, less);
-    merge(a, (start + end) / 2 + 1, end, less);
+    merge(a, start, (start + end) / 2, great);
+    merge(a, (start + end) / 2 + 1, end, great);
 
     int j1 = start, j2 = (start + end) / 2 + 1, k = 0;
     ;
@@ -19,7 +19,7 @@ void merge(vector<pair<int, int>> &a, int start, int end, vector<int> &less)
     {
         if (a[j1].first > a[j2].first)
         {
-            less[a[j2].second] += (start + end) / 2 - j1 + 1;
+            great[a[j2].second] += (start + end) / 2 - j1 + 1;
             c[k++] = a[j2++];
         }
         else
@@ -43,14 +43,14 @@ void merge(vector<pair<int, int>> &a, int start, int end, vector<int> &less)
     }
 }
 
-void merge2(vector<pair<int, int>> &a, int start, int end, vector<int> &great)
+void merge2(vector<pair<int, int>> &a, int start, int end, vector<int> &less)
 {
     if (start == end)
     {
         return;
     }
-    merge2(a, start, (start + end) / 2, great);
-    merge2(a, (start + end) / 2 + 1, end, great);
+    merge2(a, start, (start + end) / 2, less);
+    merge2(a, (start + end) / 2 + 1, end, less);
 
     int j1 = start, j2 = (start + end) / 2 + 1, k = 0;
     ;
@@ -59,7 +59,7 @@ void merge2(vector<pair<int, int>> &a, int start, int end, vector<int> &great)
     {
         if (a[j1].first < a[j2].first)
         {
-            great[a[j2].second] += (start + end) / 2 - j1 + 1;
+            less[a[j2].second] += (start + end) / 2 - j1 + 1;
             c[k++] = a[j2++];
         }
         else
@@ -98,9 +98,9 @@ int main()
     vector<int> less(t, 0);
     vector<int> great(t, 0);
     vector<pair<int, int>> a1 = a;
-    merge(a1, 0, t - 1, less);
+    merge(a1, 0, t - 1, great);
     a1 = a;
-    merge2(a1, 0, t - 1, great);
+    merge2(a1, 0, t - 1, less);
     ll f = 0;
     rep(i, t)
     {
