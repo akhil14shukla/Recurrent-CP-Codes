@@ -12,6 +12,15 @@ struct TreeNode
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
 };
 
+int fast_atoi( const char * str )   // string to int, someone on stackoverflow says this one is faster than atoi(),
+{                                   // but I still need to compare it with stoi()
+    int val = 0;
+    while( *str ) {
+        val = val*10 + (*str++ - '0');
+    }
+    return val;
+}
+
 int level_order(TreeNode *root)
 {
     queue<TreeNode *> q1, q2;
@@ -25,7 +34,7 @@ int level_order(TreeNode *root)
             while (!q1.empty())
             {
                 int curr = q1.front()->val;
-                temp += 10 * sum + curr;
+                // temp += 10 * sum + curr;
                 if (q1.front()->left != NULL)
                 {
                     q2.push(q1.front()->left);
@@ -42,7 +51,7 @@ int level_order(TreeNode *root)
             while (!q2.empty())
             {
                 int curr = q2.front()->val;
-                temp += 10 * sum + curr;
+                // temp += 10 * sum + curr;
                 if (q2.front()->left != NULL)
                 {
                     q1.push(q2.front()->left);
