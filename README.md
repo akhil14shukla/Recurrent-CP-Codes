@@ -1,5 +1,5 @@
 # Recurrent-CP-Codes
-Contains frequent codes that are used in competitive programming or any other coding related problems.
+Contains frequent codes that are used in competitive programming or any other programming related problems.
 
 
 Useful Links: <br>
